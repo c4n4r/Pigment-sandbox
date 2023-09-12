@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pigment Sandbox{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+            <h2 style="color: {{ color.colorHex }}">Select your options</h2>
+            <form action="/" method="get">
+
+                <input type="color"
+                       id="color"
+                       class="input number"
+                       name="color"
+                       value="{{ color.colorHex }}">
+
+                <div class="flex">
+                    <input type="number"
+                           class="input"
+                           id="gradients-count"
+                           name="gradients-count" value="{{ gradients | length }}">
+                    <select name="type"
+                            class="input"
+                            id="type">
+                        <option value="splitComplementary" {% if type == 'splitComplmentary' %} selected {% endif %}>Split complementary</option>
+                        <option value="complementary" {% if type == 'complementary' %} selected {% endif %} >Complementary</option>
+                    </select>
+                </div>
+
+
+
+                <input type="submit"
+                       style="background:{{ color.colorHex }}"
+                       class="button"
+                       value="Submit">
+
+                <a href="/" class="button" style="background: {{ harmonized.colorHex }}">Random</a>
+
+            </form>
+
+        </div>
+
+
+        <div class="colors">
+            <div class="block" style="background-color:{{ color.colorHex }}">
+                <span>{{ color.colorHex }}</span>
+            </div>
+            <div class="block" style="background-color:{{ harmonized.colorHex }}">
+                <span>{{ harmonized.colorHex }}</span>
+            </div>
+        </div>
+        <h3 style="color: {{ color.colorHex }}">Generated Gradient :</h3>
+        <div class="colors">
+            {% for gradient in gradients  %}
+                <div class="block" style="background-color:{{ gradient.colorHex }}">
+                    <span>{{ gradient.colorHex }}</span>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}
